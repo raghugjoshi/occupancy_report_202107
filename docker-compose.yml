@@ -1,0 +1,47 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_DATABASE: stealth_test
+      MYSQL_ROOT_PASSWORD: rls
+      MYSQL_USER: rls
+      MYSQL_PASSWORD: rls
+    command: >
+      mysqld
+      --bind-address=0.0.0.0
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_bin
+      --innodb-file-format=Barracuda
+      --innodb-file-format-max=Barracuda
+      --innodb-file-per-table=1
+      --innodb-large-prefix=1
+
+  rspec: &rspec
+    build: .
+    environment:
+      DB_USER_NAME: root
+      DB_HOST_NAME: mysql
+      DB_PASSWORD: rls
+      DB_PORT: 3306
+      API_HOST_NAME: localhost:3000
+      VACATION_STAY_HOST: http://localhost:3001
+      RAILS_LOG_TO_STDOUT: "true"
+      RAILS_SERVE_STATIC_FILES: "true"
+    command: rspec
+    depends_on:
+      - mysql
+    volumes:
+      - .:/app:cached
+      - tmp:/app/tmp
+      - log:/app/log
+
+  wait:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - mysql
+    command: mysql:3306
+
+volumes:
+  tmp:
+  log:

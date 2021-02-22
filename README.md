@@ -1,24 +1,16 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Create a report for JTA
+JTA wants every travel operator handling vacation rental to report daily about the number of days of reservation for each registered vacation rental.
+The data is to be prepared as a csv file in Shift JIS format and uploaded via SFTP.
+JTA will then combine the data and inform us which listing have to be closed because they crossed  the 180 day limit.
 
-Things you may want to cover:
+- Read data from DB and output csv file
+- Please refer to schema.rb
+- Create only required models and jobs for output this data
+- Make sure if your code becomes same results with queries which we shared
+- Write specs to cover your code
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Create a daily job
+- Triggering part and uploaded via SFTP is also is out of scope
+- Create a CSV file whose format is same with the query

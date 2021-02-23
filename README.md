@@ -18,19 +18,13 @@ JTA will then combine the data and inform us which listing have to be closed bec
 Sample Query
 
 ```
-SELECT 
-    reservations.reference_code,
-    room_groups.origin_id AS room_group,
-    rooms.code as license,
-    reservations.checkin,
-    reservations.checkout,
-    reservation_assignments.date
-FROM reservations
-JOIN reservation_assignments ON reservation_assignments.reservation_id = reservations.id AND reservation_assignments.status = "stay"
+SELECT rooms.code as license, reservation_assignments.date
+FROM reservation_assignments
+JOIN reservations ON reservation_assignments.reservation_id = reservations.id AND reservations.status = 'reserved'
 JOIN room_groups ON room_groups.id = reservations.room_group_id
 JOIN rooms ON rooms.id = reservation_assignments.room_id
-AND reservations.status = 'reserved'
+AND reservation_assignments.status = "stay"
+AND reservation_assignments.date = DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY)
 AND room_groups.law_type = "vacation_rental_law"
-AND reservations.sales_code = "vacationstay"
-AND reservations.checkout BETWEEN Date('{{daterange.start}}') AND Date('{{daterange.end}}')
+AND reservations.sales_code = "vacationstay";
 ```

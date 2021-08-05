@@ -4,7 +4,7 @@ default: &default
   timeout: 5000
   username: <%= ENV['DB_USER_NAME'].blank? ? 'root': ENV['DB_USER_NAME'] %>
   host: <%= ENV['DB_HOST_NAME'].blank? ? '' : ENV['DB_HOST_NAME'] %>
-  password: <%= ENV['DB_PASSWORD'].blank? ? '' : ENV['DB_PASSWORD'] %>
+  password: <%= ENV['DB_PASSWORD'].blank? ? 'password' : ENV['DB_PASSWORD'] %>
   port: <%= ENV['DB_PORT'] || 3306 %>
   reconnect: false
   encoding: utf8mb4
@@ -19,3 +19,7 @@ development:
 docker:
   <<: *default
   database: stealth_development
+
+test:
+  <<: *default
+  database: stealth_test

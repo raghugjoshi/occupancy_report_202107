@@ -17,10 +17,10 @@ set :output, "log/cron.log"
 #   runner "AnotherModel.prune_old_records"
 # end
 
-job_type :rbenv_runner, %Q{export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"; cd :path && bundle exec rails runner :task --silent :output }
+job_type :rbenv_runner, %Q{export PATH=$HOME/.rbenv/bin:$PATH; eval "$(rbenv init -)"; cd :path && bundle exec rails runner -e development :task --silent :output }
 
 every 1.day, at: '1:38 pm' do
-  rbenv_runner "OccupancyReportGenerator.generate"
+  rbenv_runner "OccupancyReportGenerator.generate", environment: 'development'
 end
 
 # Learn more: http://github.com/javan/whenever

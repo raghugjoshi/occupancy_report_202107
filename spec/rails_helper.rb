@@ -62,11 +62,11 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = [:truncation, only: %w[room_groups rooms reservations reservation_assignments]]
   end
 
-  config.before(:each) do
+  config.before(:all) do
     DatabaseCleaner.start
   end
 
-  config.after(:each) do
+  config.after(:all) do
     DatabaseCleaner.clean
   end
 

@@ -306,14 +306,6 @@ RSpec.describe Reservation, type: :model do
           expect(reservation).to be_invalid
         end
       end
-
-      describe 'cancelled_by' do 
-        it 'validates cancelled_by with nil value' do 
-          reservation.cancelled_by = nil
-          expect(reservation).to be_invalid
-        end
-      end
-
     end
   end
 end

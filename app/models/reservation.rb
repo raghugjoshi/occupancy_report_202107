@@ -18,7 +18,6 @@ class Reservation < ApplicationRecord
 							:remarks,
 							:payment_type,
 							:currency,
-							:cancelled_by,
 							:user_email,
 							presence: true
 
